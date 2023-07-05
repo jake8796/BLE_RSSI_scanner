@@ -7,14 +7,19 @@ class ScanDelegate(DefaultDelegate):
     def handleDiscovery(self, dev, isNewDev, isNewData):
         if isNewDev:
             if dev.getValueText(9) != "None":
-                print("Discovered device:", dev.addr)
-                print("Device description:", dev.getValueText(9))  # Printing Device Description (Complete Local Name)
+                pass
+                #print("Discovered device:", dev.addr)
+                #print("Device description:", dev.getValueText(9))  # Printing Device Description (Complete Local Name)
 
         if isNewData:
-            print("RSSI:", dev.rssi)
+            pass
+            #print("RSSI:", dev.rssi)
 
 
 scanner = Scanner().withDelegate(ScanDelegate())
 
 while True:
-    devices = scanner.scan(5)  # Scans for 5 seconds
+    devices = scanner.scan(0.1)  # Scans for 500 mS
+    for dev in devices:
+        if dev.getValueText(9) == 'Test Device': #Get Device description
+            print (" Device: ",str(dev.addr)," RSSI: ",str(dev.rssi)," Device description:", dev.getValueText(9))
